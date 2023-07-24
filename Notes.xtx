@@ -1,0 +1,64 @@
+https://www.youtube.com/watch?v=SLB_c_ayRMo
+
+Commands:
+
+    terraform init: it will look the files and will download all provider plugins need to work
+    terraform plan: check the infrustructure and spot the changes
+                    create, update, delete actions
+    terraform apply: apply the changes
+    terraform destroy: delete the resources
+    terraform state list: lista all resources created
+    terraform state show <resource>: to view details about the resource
+
+
+
+    --auto-approve: to ignore asking type yes for confirmation
+    -target <target_resource>: 
+
+
+Provider: allows to use specific apis (azure, aws, google, kubernetes...)
+          we need to install the provider plugins (https://registry.terraform.io/browse/providers)
+
+Provision resource:
+
+    resource "provider_resourcetype" "name"{
+        key = "value config"
+    }
+
+    The name of the resource is used as a reference in the terraform code and is not the resource name
+    To set the resource name in the cloud use tags Name property
+    From documendation find the definition of the resource
+
+
+Referencing other resources in the code:
+    <resource_type>.<resource_name>.<property (id)>
+    aws_vpc.first-vpc.id
+
+
+
+Terraform files: 
+
+    .terraform folder: on terraform init will create this folder and will store all the plugin files of provider
+    terraform.tfstate: everything is created (the current state)
+
+
+Variables:  
+
+    Declare variable: 
+        # if not assign deafult when the script run terraform will ask from user the value from command prompt
+        variable "subnet_prefix" {
+        description = "this is a variable example"
+        default = "10.0.0.0/16"
+        type = string
+        }
+    From command line:
+
+        -var "subnet_prefix=10.0.0.01/24"
+
+    Create file with variables (best practive):
+
+       Speficy the vars values in  terraform.tfvars
+
+       OR 
+
+       create other.tfvars and in command ass -var-file <> argument
